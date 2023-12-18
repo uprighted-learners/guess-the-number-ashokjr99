@@ -23,7 +23,6 @@ async function start() {
   console.log("You entered: " + secretNumber);
 
   while (running === true) {
-    console.log(min, max);
     let guess = Math.floor((max - min) / 2) + min; // the computer's guess at a number
     let answer = await ask(`is your secret number ${guess}? (Y/N)`);
     let panswer = "";
