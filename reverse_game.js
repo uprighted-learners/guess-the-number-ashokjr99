@@ -8,14 +8,6 @@ function ask(questionText) {
 }
 
 async function start() {
-  // console.log(
-  //   "Let's play a game where you (human) make up a number and I (computer) try to guess it."
-  // );
-  // let secretNumber = await ask(
-  //   "What is your secret number?\nI won't peek, I promise..."
-  // );
-  // console.log("You entered: " + secretNumber);
-
   let min = 1; // sets minimum
   let max = 100; // sets maximum
   const answer = Math.floor(Math.random() * (max - min + 1)); //random number generator
@@ -30,7 +22,7 @@ async function start() {
     guess = Number(guess); //  making sure my guess remains a number value ONLY
 
     if (guess < min || guess > max) {
-      console.log(`Guess a number between 1-100 ONLY`);
+      console.log(`Guess a number between ${min}-${max} ONLY`);
     } else {
       tries++; //will increment my tries variable
       if (guess < answer) {
