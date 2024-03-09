@@ -7,7 +7,7 @@ function ask(questionText) {
   });
 }
 
-async function start() {
+async function reverseStart() {
   let min = 1; // sets minimum
   let max = 100; // sets maximum
   const answer = Math.floor(Math.random() * (max - min + 1)); //random number generator
@@ -37,7 +37,7 @@ async function start() {
         );
         again = await ask("Do you want to play again?. Yes(Y) or No(N)?"); // variable for play again question
         if (again === "Y" || "y") {
-          start(); // restarts my function if user is wanting to play again
+          reverseStart(); // restarts my function if user is wanting to play again
         } else {
           running = false; // exits my loop, but likely redundant
           process.exit(); // exits my function if user is done
@@ -46,4 +46,4 @@ async function start() {
     }
   }
 }
-start();
+reverseStart();
