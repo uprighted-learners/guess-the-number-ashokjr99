@@ -3,7 +3,13 @@ const rl = readline.createInterface(process.stdin, process.stdout);
 
 function ask(questionText) {
   return new Promise((resolve, reject) => {
-    rl.question(questionText + "\n", resolve);
+    rl.question(
+      questionText + "\n",
+      (input) =>
+        input.length > 0
+          ? resolve(input.toUpperCase())
+          : reject("Provide input") // makes it so user can use caps or lowercase
+    );
   });
 }
 
@@ -30,6 +36,12 @@ async function start() {
   let secretNumber = await ask(
     "What is your secret number?\nI won't peek, I promise..." // my variable for the secret number
   );
+
+  if (secretNumber > max || secretNumber < min) {
+    console.log("C'mon dude. Stop being smart. Restarting...");
+    pickGame();
+  }
+
   console.log("You entered: " + secretNumber);
 
   while (running === true) {
@@ -44,8 +56,10 @@ async function start() {
         min = guess; // sets new min
         if (guess + 1 === max) {
           // conditional if the user's secret number is 100
-          console.log(`Congrats your number is ${max}`);
-          start(); // restarts my function if user is wanting to play again
+          console.log(
+            `Congrats your number is ${max}. It took you ${tries} tries.`
+          );
+          pickGame(); // restarts my function if user is wanting to play again
         }
       } else if (panswer === "L") {
         max = guess; // sets new max
@@ -73,9 +87,9 @@ async function pickGame() {
     `Would you like to play the standard or reverse game?`
   );
 
-  if (gameOption === "standard" || gameOption === "s") {
+  if (gameOption === "STANDARD" || gameOption === "S") {
     start();
-  } else if (gameOption === "reverse" || gameOption === "r") {
+  } else if (gameOption === "REVERSE" || gameOption === "R") {
     reverseStart();
   } else {
     pickGame();
@@ -115,7 +129,7 @@ async function reverseStart() {
           `The number was ${answer}. Correct! It took you ${tries} tries.`
         );
         again = await ask("Do you want to play again?. Yes(Y) or No(N)?"); // variable for play again question
-        if (again === "Y" || again === "y") {
+        if (again === "Y") {
           pickGame(); // restarts my function if user is wanting to play again
         } else {
           console.log("Thank you for playing. Bye.");
